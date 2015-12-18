@@ -1,0 +1,2 @@
+# binners-project
+ The Binners’ Project is a group of waste-pickers aided  by support staff dedicated to improving their economic opportunities, and reducing the stigma they face as informal recyclable collectors.  Binners are among one of the most marginalized groups in urban areas. Their livelihoods stem from refunds received from used containers collected from bins around the city.   Binners positively contribute to our environment by diverting a considerable amount of waste from our landfill.

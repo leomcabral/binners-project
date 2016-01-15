@@ -38,8 +38,8 @@
       "IS_SECURE": false
     },
     "GITHUB": {
-      "CLIENT_ID": "5e32b8f63bc2e54077b3",
-      "CLIENT_SECRET": "5357f1db01fb175a6c63e05cb09ee77eec6933af",
+      "CLIENT_ID": "YOU_CLIENT_ID",
+      "CLIENT_SECRET": "YOUR_CLIENT_SECRET",
       "CALLBACK_URL": "/auth/github/callback",
       "IS_SECURE": false
     }

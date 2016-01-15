@@ -27,6 +27,9 @@ This section will show you some example of endpoint calls
 
     http://localhost:3000/api/v1.0/users
 
+## Any problems?
+Let us know at samuelcastrosilva@gmail.com
+
 
 
 

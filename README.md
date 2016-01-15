@@ -11,7 +11,7 @@ Last year, Ken passed on the leadership to Anna Godefroy, who worked with him si
 ## Getting Start
 You first need to install [node.js](http://nodejs.org/) if you do not already have them on your computer. Then download the project from beanstalk:
 
-    $ git clone https://integritas.git.beanstalkapp.com/soundbitz.git
+    $ git clone https://github.com/VanHack/binners-project-api
 
 ## Run
 

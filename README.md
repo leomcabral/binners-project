@@ -1,4 +1,4 @@
-Binners Project API
+# Binners Project API
 
 The Binners' Project started with an experimental initiative grant from the J.W. McConnell Family Foundation in 2014. It was initiated in Vancouver and Montreal by Ken Lyotier, founder and former Executive Director of United We Can.
 

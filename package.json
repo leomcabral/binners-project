@@ -1,0 +1,38 @@
+{
+  "name": "Binners_Project_API",
+  "version": "1.0.0",
+  "description": "https://github.com/VanHack/binners-project-api.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VanHack/binners-project-api.git"
+  },
+  "main": "app.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha test/**/*-test.js",
+    "start": "node app.js"
+  },
+  "author": "Samuel Castro <samuelcastrosilva@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.1.0",
+    "bell": "^5.0.0",
+    "bluebird": "^2.9.34",
+    "boom": "^2.7.1",
+    "config": "^1.13.0",
+    "eyes": "^0.1.8",
+    "good": "^6.1.2",
+    "good-console": "^5.0.0",
+    "handlebars": "^3.0.3",
+    "hapi": "^8.4.0",
+    "hapi-io": "0.0.5",
+    "hapi-swagger": "git+https://github.com/samuelcastro/hapi-swagger.git#0.7.4",
+    "joi": "^6.1.0",
+    "jsonwebtoken": "^5.0.1",
+    "marked": "^0.3.3",
+    "mongoose": "^4.0.3",
+    "mongoose-findorcreate": "^0.1.2",
+    "mongoose-unique-validator": "^0.4.1",
+    "nodemailer": "^1.4.0",
+    "underscore.string": "^3.0.3"
+  }
+}

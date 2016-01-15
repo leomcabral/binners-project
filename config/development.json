@@ -1,0 +1,53 @@
+{
+  "SERVER": {
+    "HOST": "localhost",
+    "PORT": 3000
+  },
+  "DATABASE": {
+    "URI": "mongodb://binners_dev:P20IE00dH0@ds047085.mongolab.com:47085/binnersproject_dev",
+    "SEED": true
+  },
+  "MAIL": {
+    "USER": "binnersproject@gmail.com",
+    "PASSWORD": "password",
+    "FROM": "binnersproject@gmail.com"
+  },
+  "SOCIAL": {
+    "FACEBOOK": {
+      "CLIENT_ID": "FACEBOOK_ID",
+      "CLIENT_SECRET": "FACEBOOK_CLIENT_SECRET",
+      "CALLBACK_URL": "/auth/facebook/login",
+      "IS_SECURE": false
+    },
+    "INSTAGRAM": {
+      "CLIENT_ID": "YOUR_CLIENT_ID",
+      "CLIENT_SECRET": "YOUR_CLIENT_SECRET",
+      "CALLBACK_URL": "/auth/instagram/callback",
+      "IS_SECURE": false
+    },
+    "TWITTER": {
+      "CLIENT_ID": "YOUR_CLIENT_ID",
+      "CLIENT_SECRET": "YOUR_CLIENT_SECRET",
+      "CALLBACK_URL": "/auth/twitter/callback",
+      "IS_SECURE": false
+    },
+    "GOOGLE": {
+      "CLIENT_ID": "YOUR_CLIENT_ID",
+      "CLIENT_SECRET": "YOUR_CLIENT_SECRET",
+      "CALLBACK_URL": "/auth/google/callback",
+      "IS_SECURE": false
+    },
+    "GITHUB": {
+      "CLIENT_ID": "YOU_CLIENT_ID",
+      "CLIENT_SECRET": "YOUR_CLIENT_SECRET",
+      "CALLBACK_URL": "/auth/github/callback",
+      "IS_SECURE": false
+    }
+  },
+  "TOKEN": {
+    "SECRET": "z4~rt45N7U4vC}P456To9@L0c,98+F",
+    "OPTIONS": {
+      "EXPIRES_IN_MINUTES": 1440
+    }
+  }
+}

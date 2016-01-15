@@ -11,7 +11,8 @@ Last year, Ken passed on the leadership to Anna Godefroy, who worked with him si
 ## Getting Start
 You first need to install [node.js](http://nodejs.org/) if you do not already have them on your computer. Then download the project from beanstalk:
 
-    $ git clone https://github.com/VanHack/binners-project-api
+    1. Fork the main project: https://github.com/VanHack/binners-project-api
+    2. Clone your own forked project: git clone https://github.com/[YOUR-USERNAME]/binners-project-api
 
 ## Run
 
@@ -25,6 +26,9 @@ You first need to install [node.js](http://nodejs.org/) if you do not already ha
 This section will show you some example of endpoint calls
 
     http://localhost:3000/api/v1.0/users
+
+## Any problems?
+Let us know at samuelcastrosilva@gmail.com
 
 
 

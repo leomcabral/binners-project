@@ -9,7 +9,7 @@ Last year, Ken passed on the leadership to Anna Godefroy, who worked with him si
 ![Home](http://samuelcastro.me/binners-project.png "Binners Project")
 
 ## Getting Start
-You first need to install [node.js](http://nodejs.org/) if you do not already have them on your computer. Then download the project from beanstalk:
+You first need to install [node.js](http://nodejs.org/) if you do not already have them on your computer. Then follow these instructions:
 
     1. Fork the main project: https://github.com/VanHack/binners-project-api
     2. Clone your own forked project: git clone https://github.com/[YOUR-USERNAME]/binners-project-api

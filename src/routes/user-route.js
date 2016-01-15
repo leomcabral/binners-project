@@ -56,7 +56,7 @@ exports.register = function(server, options, next) {
 	 *     {
  	 *       "statusCode": 422,
  	 *       "error": "Unprocessable Entity",
- 	 *       "message": "Not authorized for query on soundbitz_dev.users"
+ 	 *       "message": "Not authorized for query on binners_dev.users"
  	 *     }
 	 */
 	server.route({
@@ -107,7 +107,7 @@ exports.register = function(server, options, next) {
 	 *     {
  	 *       "statusCode": 422,
  	 *       "error": "Unprocessable Entity",
- 	 *       "message": "Not authorized for query on soundbitz_dev.users"
+ 	 *       "message": "Not authorized for query on binners_dev.users"
  	 *     }
 	 */
 	server.route({
@@ -161,7 +161,7 @@ exports.register = function(server, options, next) {
 	*     {
  	*       "statusCode": 422,
  	*       "error": "Unprocessable Entity",
- 	*       "message": "Not authorized for query on soundbitz_dev.users"
+ 	*       "message": "Not authorized for query on binners_dev.users"
  	*     }
 	*/
 	server.route({ 
@@ -214,7 +214,7 @@ exports.register = function(server, options, next) {
 	 *     {
  	 *       "statusCode": 422,
  	 *       "error": "Unprocessable Entity",
- 	 *       "message": "Not authorized for query on soundbitz_dev.users"
+ 	 *       "message": "Not authorized for query on binners_dev.users"
  	 *     }
 	 */
 	server.route({
@@ -257,7 +257,7 @@ exports.register = function(server, options, next) {
 	 *     {
  	 *       "statusCode": 422,
  	 *       "error": "Unprocessable Entity",
- 	 *       "message": "Not authorized for query on soundbitz_dev.users"
+ 	 *       "message": "Not authorized for query on binners_dev.users"
  	 *     }
 	 */
 	server.route({

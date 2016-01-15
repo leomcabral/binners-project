@@ -106,7 +106,7 @@ AuthController.prototype = (function(){
 						var mailOptions = {
 							to: user.email,
 							from: config.get('MAIL.FROM'),
-							subject: 'SoundBitz Password Reset',
+							subject: 'Binners Password Reset',
 							text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
 							'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
 							'http://' + request.headers.host + '/api/v1.0/auth/reset/' + token + '\n\n' +

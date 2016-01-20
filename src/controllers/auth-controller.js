@@ -238,7 +238,7 @@ AuthController.prototype = (function(){
 		 */
 		facebookAuth: function(request, reply) {
 			if (request.params.accessToken) {
-				https.get("https://graph.facebook.com/v2.4/me?fields=email&access_token=" + request.params.accessToken, function(response) {
+				https.get("https://graph.facebook.com/v2.5/me?fields=email&access_token=" + request.params.accessToken, function(response) {
 
 					var data = '';
 
@@ -260,18 +260,39 @@ AuthController.prototype = (function(){
 					 * Process end
 					 */
 					response.on('end', function() {
-						var user = JSON.parse(data);
+						var err, userData;
+						var facebookUser = JSON.parse(data);
 
-						/**
-						 * Generating a new JWT token
-						 */
-						var token = jwt.sign(
-							{ user: user.id },
-							config.get('TOKEN.SECRET'),
-							{ expiresInMinutes: config.get('TOKEN.OPTIONS.EXPIRES_IN_MINUTES') }
-						);
+						// Validate user on mongodb
+						User.findOne({
+					    	email : facebookUser.email
+						}).then(function(user) {
+							if (!user) {
+								if (!user) {
+									err = Boom.notFound('', errors.USER_NOT_FOUND);
+									err.output.payload.details = err.data;
+									return reply(err);
+								}
+							}
 
-						return reply({ token: token, user: user, social: true });
+							userData = {
+								id: user.id,
+								name: user.name,
+								email: user.email
+							};
+
+							/**
+							 * Generating a new JWT token
+							 */
+							var token = jwt.sign(
+								{ user: user.id },
+								config.get('TOKEN.SECRET'),
+								{ expiresInMinutes: config.get('TOKEN.OPTIONS.EXPIRES_IN_MINUTES') }
+							);
+
+							return reply({ token: token, user: userData, social: true });
+						});
+
 					});
 
 				}).on('error', function(e) {

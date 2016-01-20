@@ -9,9 +9,12 @@ var mongoose = require('mongoose'),
  * Creating user schema
  */
 var User = new Schema({
+	name: { type: String },
 	email: { type: String, required: '{PATH} is required!', unique: true },
-	password: { type: String, required: '{PATH} is required!' },
+	password: { type: String },
 	phone: { type: String },
+	address: { type: String },
+	homeAddress: { type: Boolean },
 	active: { type:Boolean, default: true },
 	resetPasswordToken: String,
 	resetPasswordExpires: Date

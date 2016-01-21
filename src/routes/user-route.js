@@ -7,7 +7,9 @@
  * @since 1/14/2016
  */
 var controllers = require('../controllers'),
-	validators = require('../validators');
+	validators = require('../validators'),
+	config = require('config'),
+	version = config.get('SERVER.API_VERSION');
 
 exports.register = function(server, options, next) {
 
@@ -61,7 +63,7 @@ exports.register = function(server, options, next) {
 	 */
 	server.route({
 		method: 'GET',
-		path: '/api/v1.0/users',
+		path: '/api/' + version + '/users',
 		config: {
 			handler : controllers.UserController.find,
 			validate: validators.UserValidator.find,
@@ -112,7 +114,7 @@ exports.register = function(server, options, next) {
 	 */
 	server.route({
 		method: 'GET',
-		path: '/api/v1.0/users/{_id}',
+		path: '/api/' + version + '/users/{_id}',
 		config: {
 		  	handler : controllers.UserController.findByID,
 			validate: validators.UserValidator.findByID,
@@ -166,7 +168,7 @@ exports.register = function(server, options, next) {
 	*/
 	server.route({ 
 		method: 'POST',
-		path: '/api/v1.0/users',
+		path: '/api/' + version + '/users',
 		config: {
 			handler: controllers.UserController.create,
 			validate: validators.UserValidator.create,
@@ -219,7 +221,7 @@ exports.register = function(server, options, next) {
 	 */
 	server.route({
 		method: 'PUT', 
-		path: '/api/v1.0/users/{_id}',
+		path: '/api/' + version + '/users/{_id}',
 		config: {
 			handler: controllers.UserController.update,
 			validate: validators.UserValidator.update,
@@ -262,7 +264,7 @@ exports.register = function(server, options, next) {
 	 */
 	server.route({
 		method: 'DELETE',
-		path: '/api/v1.0/users/{_id}',
+		path: '/api/' + version + '/users/{_id}',
 		config: {
 	    	handler: controllers.UserController.delete,
 	    	validate: validators.UserValidator.delete,

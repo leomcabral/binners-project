@@ -6,7 +6,9 @@
  * @author Samuel Castro
  * @since 1/14/2016
  */
-var controllers = require('../controllers');
+var controllers = require('../controllers'),
+    config = require('config'),
+    version = config.get('SERVER.API_VERSION');
 
 exports.register = function(server, options, next) {
 
@@ -41,7 +43,7 @@ exports.register = function(server, options, next) {
    */
   server.route({
     method: 'GET',
-    path: '/api/v1.0/doc',
+    path: '/api/' + version + '/doc',
     config: {
       handler: controllers.DocController.index
     }

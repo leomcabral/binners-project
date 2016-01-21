@@ -7,7 +7,9 @@
  * @since 1/14/2016
  */
 var controllers = require('../controllers'),
-    validators = require('../validators');
+    validators = require('../validators'),
+    config = require('config'),
+    version = config.get('SERVER.API_VERSION');
 
 exports.register = function(server, options, next) {
 
@@ -51,7 +53,7 @@ exports.register = function(server, options, next) {
    */
   server.route({
     method: 'POST',
-    path: '/api/v1.0/auth',
+    path: '/api/' + version + '/auth',
     config: {
       handler:  controllers.AuthController.auth,
       validate: validators.AuthValidator.auth,
@@ -98,7 +100,7 @@ exports.register = function(server, options, next) {
    */
   server.route({
     method: 'GET',
-    path: '/api/v1.0/auth/facebook/',
+    path: '/api/' + version + '/auth/facebook/',
     config: {
       handler:  controllers.AuthController.isAuthenticated,
       description: 'Facebook login',
@@ -145,7 +147,7 @@ exports.register = function(server, options, next) {
    */
   server.route({
     method: 'GET',
-    path: '/api/v1.0/auth/facebook/{accessToken}',
+    path: '/api/' + version + '/auth/facebook/{accessToken}',
     config: {
       handler:  controllers.AuthController.facebookAuth,
       validate: validators.AuthValidator.facebookAuth,
@@ -165,7 +167,7 @@ exports.register = function(server, options, next) {
    */
   server.route({
     method: 'GET',
-    path: '/api/v1.0/auth',
+    path: '/api/' + version + '/auth',
     config: {
       handler : controllers.AuthController.getAuth,
       validate: validators.AuthValidator.getAuth,
@@ -186,7 +188,7 @@ exports.register = function(server, options, next) {
    */
   server.route({
     method: 'GET',
-    path: '/api/v1.0/auth/forgot/{email}',
+    path: '/api/' + version + '/auth/forgot/{email}',
     config: {
       handler : controllers.AuthController.forgot,
       validate: validators.AuthValidator.forgot,
@@ -206,7 +208,7 @@ exports.register = function(server, options, next) {
    */
   server.route({
     method: 'GET',
-    path: '/api/v1.0/auth/reset/{token}',
+    path: '/api/' + version + '/auth/reset/{token}',
     config: {
       handler : controllers.AuthController.resetPassword,
       validate: validators.AuthValidator.resetPassword,
@@ -226,7 +228,7 @@ exports.register = function(server, options, next) {
    */
   server.route({
     method: 'POST',
-    path: '/api/v1.0/auth/reset/{token}',
+    path: '/api/' + version + '/auth/reset/{token}',
     config: {
       handler : controllers.AuthController.doResetPassword,
       validate: validators.AuthValidator.doResetPassword,

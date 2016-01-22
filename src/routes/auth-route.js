@@ -120,6 +120,7 @@ exports.register = function(server, options, next) {
    *       {
    *	   		token: ""eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiOTE3MDQ1NzMxNjk1Mzg3IiwiaWF0IjoxNDM4NzAyODE3LCJleHAiOjE0Mzg3ODkyMTd9.kbPYvzngO-RPBlahsyyIIxiAzeDCEjfqZi80SXf9sN0""
    *			user: {
+   *          name: "Samuel",
    *		      email: "samuelcastrosilva@gmail.com",
    *		      id: 1234567899
    *		    },

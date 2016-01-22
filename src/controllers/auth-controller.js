@@ -268,11 +268,9 @@ AuthController.prototype = (function(){
 					    	email : facebookUser.email
 						}).then(function(user) {
 							if (!user) {
-								if (!user) {
-									err = Boom.notFound('', errors.USER_NOT_FOUND);
-									err.output.payload.details = err.data;
-									return reply(err);
-								}
+								err = Boom.notFound('', errors.USER_NOT_FOUND);
+								err.output.payload.details = err.data;
+								return reply(err);
 							}
 
 							userData = {

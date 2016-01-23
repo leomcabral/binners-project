@@ -156,6 +156,30 @@ exports.register = function(server, options, next) {
     }
   });
 
+  server.route({
+    method: 'GET',
+    path: '/api/v1.0/auth/google/',
+    config: {
+      handler:  controllers.AuthController.isAuthenticated,
+      description: 'Google+ login',
+      notes: 'Google+ SignIn Process',
+      tags: ['api'],
+      auth: 'google'
+    }
+  });
+
+  server.route({
+    method: 'GET',
+    path: '/api/v1.0/auth/google/{accessToken}',
+    config: {
+      handler:  controllers.AuthController.googleAuth,
+      validate: validators.AuthValidator.googleAuth,
+      description: 'Google+ login based on Mobile SDK',
+      notes: 'Google+ SignIn Process - Mobile SDK',
+      tags: ['api']
+    }
+  });
+
   /**
    * @api {get} /api/auth
    * @apiName  Get

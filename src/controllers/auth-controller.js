@@ -297,6 +297,87 @@ AuthController.prototype = (function(){
 					return reply(Boom.unauthorized('401 Unauthorized'));
 				});
 			}
+		},
+
+
+		/**
+		 * OAuth social authentication
+		 * @param request
+		 * @param reply
+		 * @returns {*}
+		 */
+		googleAuth: function(request, reply) {
+			if (request.params.accessToken) {
+
+				var options = {
+					host: 'www.googleapis.com',
+					path: '/plus/v1/people/me?fields=displayName%2Cemails%2Cgender%2Cname&key=' + request.params.accessToken,
+					headers: {
+						Authorization: 'Bearer ' + request.params.accessToken
+					}
+				};
+
+				https.get(options, function(response) {
+
+					var data = '';
+
+					/**
+					 * Unauthorized if there is some error
+					 */
+					if(response.statusCode !== 200) {
+						return reply(Boom.unauthorized('401 Unauthorized'));
+					}
+
+					/**
+					 * Getting data
+					 */
+					response.on('data', function(d) {
+						data += d;
+					});
+
+					/**
+					 * Process end
+					 */
+					response.on('end', function() {
+						var err, userData;
+						var googleUser = JSON.parse(data);
+
+						console.log('>>>>>>>>>>>>>>>>>>>> ' + data);
+
+						// Validate user on mongodb
+						User.findOne({
+					    	email : googleUser.emails.length > 0 ? googleUser.emails[0].value : null
+						}).then(function(user) {
+							if (!user) {
+								err = Boom.notFound('', errors.USER_NOT_FOUND);
+								err.output.payload.details = err.data;
+								return reply(err);
+							}
+
+							userData = {
+								id: user.id,
+								name: user.name,
+								email: user.email
+							};
+
+							/**
+							 * Generating a new JWT token
+							 */
+							var token = jwt.sign(
+								{ user: user.id },
+								config.get('TOKEN.SECRET'),
+								{ expiresInMinutes: config.get('TOKEN.OPTIONS.EXPIRES_IN_MINUTES') }
+							);
+
+							return reply({ token: token, user: userData, social: true });
+						});
+
+					});
+
+				}).on('error', function(e) {
+					return reply(Boom.unauthorized('401 Unauthorized'));
+				});
+			}
 		}
 	}
 })();

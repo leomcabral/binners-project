@@ -12,6 +12,7 @@ var User = new Schema({
 	name: { type: String },
 	email: { type: String, required: '{PATH} is required!', unique: true },
 	password: { type: String },
+	twitterId: { type: String },
 	phone: { type: String },
 	address: { type: String },
 	homeAddress: { type: Boolean },

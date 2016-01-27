@@ -28,6 +28,11 @@ AuthValidator.prototype = (function(){
 				accessToken: authSchema.accessToken.required().description('Social Authorization Parameter')
 			}
 		},
+		googleAuth: {
+			params: {
+				accessToken: authSchema.accessToken.required().description('Google+ access token')
+			}
+		},
 		forgot: {
 			params: {
 				email: schema.email.required().description('User email').example('samuelcastrosilva@gmail.com')

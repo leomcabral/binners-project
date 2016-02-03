@@ -11,7 +11,8 @@ var Joi = require('joi');
 
 function AuthSchema(){
 	this.schema = {
-		accessToken: Joi.string()
+		accessToken: Joi.string(),
+		accessSecret: Joi.string()
 	};
 }
 

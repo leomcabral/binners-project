@@ -8,7 +8,9 @@
  */
 var marked = require('marked'),
 	hapi = require('hapi'),
-	fs = require('fs');
+	fs = require('fs'),
+	config = require('config'),
+	oAuth = require('oauth');
 
 module.exports = {
 
@@ -92,6 +94,20 @@ module.exports = {
 		return obj && !(obj.propertyIsEnumerable('length'))
 			&& typeof obj === 'object'
 			&& typeof obj.length === 'number';
-	}
+	},
+
+	twitterOAuth: (function (){
+		var oauth = new oAuth.OAuth(
+		  'https://api.twitter.com/oauth/request_token',
+		  'https://api.twitter.com/oauth/access_token',
+		  config.get('SOCIAL.TWITTER.CLIENT_ID'),
+		  config.get('SOCIAL.TWITTER.CLIENT_SECRET'),
+		  '1.0A',
+		  null,
+		  'HMAC-SHA1'
+		);
+
+		return oauth;
+	})()
 
 };

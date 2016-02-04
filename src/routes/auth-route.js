@@ -182,6 +182,66 @@ exports.register = function(server, options, next) {
     }
   });
 
+  server.route({
+    method: 'GET',
+    path: '/api/' + version + '/auth/twitter/',
+    config: {
+      handler:  controllers.AuthController.isAuthenticated,
+      description: 'Twitter login',
+      notes: 'Twitter SignIn Process',
+      tags: ['api'],
+      auth: 'twitter'
+    }
+  });
+
+  /**
+   * @api {get} /api/v1.0/auth/twitter/{access_token}/{accessSecret}
+   * @apiName Twitter SignIn Mobile SDK
+   * @apiGroup Users
+   *
+   * @apiSuccessExample Success-Response:
+   *     HTTP/1.1 200 OK
+   *       {
+   *        token: ""eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiOTE3MDQ1NzMxNjk1Mzg3IiwiaWF0IjoxNDM4NzAyODE3LCJleHAiOjE0Mzg3ODkyMTd9.kbPYvzngO-RPBlahsyyIIxiAzeDCEjfqZi80SXf9sN0""
+   *      user: {
+   *          name: "Samuel",
+   *          email: "samuelcastrosilva@gmail.com",
+   *          id: 1234567899
+   *        },
+   *        social: true
+   *     }
+   *
+   * @apiError InternalServerError: Some issue occurs when try to create user.
+   * @apiError Unprocessable Entity: Not allowed to create user.
+   *
+   * @apiErrorExample Error-Response:
+   *     HTTP/1.1 500 Internal Server Error
+   *     {
+   *       "statusCode": 500,
+   *       "error": "Internal Server Error",
+   *       "message": "500 Internal Server Error"
+   *     }
+   *
+   * @apiErrorExample Error-Response:
+   *     HTTP/1.1 422 Unprocessable Entity
+   *     {
+   *       "statusCode": 422,
+   *       "error": "Unprocessable Entity",
+   *       "message": "Not authorized for query on binners_dev.users"
+   *     }
+   */
+  server.route({
+    method: 'GET',
+    path: '/api/' + version + '/auth/twitter/{accessToken}/{accessSecret}',
+    config: {
+      handler:  controllers.AuthController.twitterAuth,
+      validate: validators.AuthValidator.twitterAuth,
+      description: 'Twitter login based on Mobile SDK',
+      notes: 'Twitter SignIn Process - Mobile SDK',
+      tags: ['api']
+    }
+  });  
+
   /**
    * @api {get} /api/auth
    * @apiName  Get

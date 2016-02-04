@@ -14,7 +14,8 @@ var Boom = require('boom'),
 	crypto = require('crypto'),
 	nodemailer = require('nodemailer'),
 	errors = require('../lib/utilities').getErrorsCode(),
-    User = models.User;
+  User = models.User,
+  twitterOAuth = require('../lib/utilities').twitterOAuth;
 
 function AuthController(){}
 
@@ -378,6 +379,60 @@ AuthController.prototype = (function(){
 					return reply(Boom.unauthorized('401 Unauthorized'));
 				});
 			}
+		},
+
+		/**
+		 * Twitter OAuth social authentication
+		 * @param request
+		 * @param reply
+		 * @returns {*}
+		 */
+		twitterAuth: function(request, reply) {
+			twitterOAuth
+			.get(
+				'https://api.twitter.com/1.1/account/verify_credentials.json?include_entities=false&skip_status=false&include_email=true',
+				request.params.accessToken,
+				request.params.accessSecret,
+				function (err, data, res){
+					if (err) return reply(Boom.wrap(err));
+
+					try {
+						var twitterProfile = JSON.parse(data);
+					} catch (e) {
+						return reply(Boom.wrap(e));
+					}
+
+					// Validate user on mongodb
+					User.findOne({
+				    	email : twitterProfile.email
+					}).then(function(user) {
+						if (!user) {
+							err = Boom.notFound('', errors.USER_NOT_FOUND);
+							err.output.payload.details = err.data;
+							return reply(err);
+						}
+
+						var userData = {
+							id: user.id,
+							name: user.name,
+							email: user.email
+						};
+
+						/**
+						 * Generating a new JWT token
+						 */
+						var token = jwt.sign(
+							{ user: user.id },
+							config.get('TOKEN.SECRET'),
+							{ expiresIn: config.get('TOKEN.OPTIONS.EXPIRES_IN_MINUTES') }
+						);
+
+						return reply({ token: token, user: userData, social: true });
+					}, function (err){
+						return reply(Boom.wrap(err));
+					});
+
+				});
 		}
 	}
 })();

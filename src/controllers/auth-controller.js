@@ -399,7 +399,7 @@ AuthController.prototype = (function(){
 					try {
 						var twitterProfile = JSON.parse(data);
 					} catch (e) {
-						return reply(Boom.wrap(e, 'Unauthorized'));
+						return reply(Boom.wrap(e));
 					}
 
 					// Validate user on mongodb

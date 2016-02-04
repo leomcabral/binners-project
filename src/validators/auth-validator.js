@@ -33,6 +33,12 @@ AuthValidator.prototype = (function(){
 				accessToken: authSchema.accessToken.required().description('Google+ access token')
 			}
 		},
+		twitterAuth: {
+			params: {
+				accessToken: authSchema.accessToken.required().description('Twitter access token'),
+				accessSecret: authSchema.accessSecret.required().description('Twitter access secret')
+			}
+		},
 		forgot: {
 			params: {
 				email: schema.email.required().description('User email').example('samuelcastrosilva@gmail.com')

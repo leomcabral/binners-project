@@ -31,7 +31,8 @@ UserValidator.prototype = (function() {
 			payload: {
 				email: schema.email.required().description('User email').example('samuelcastrosilva@gmail.com'),
 				password: schema.password.required().description('User password').example('samuelcastro'),
-				phone: schema.phone.optional().description('User phone').example('55 37 9999-9999'),
+                name: schema.name.required().description('User name').example('Samuel Castro'),
+                phone: schema.phone.optional().description('User phone').example('55 37 9999-9999'),
 				active: schema.active.optional().description('User is active').example(true)
 			}
 		},
@@ -39,6 +40,7 @@ UserValidator.prototype = (function() {
 			payload: {
 				email: schema.email.optional().description('User email').example('samuelcastrosilva@gmail.com'),
 				password: schema.password.optional().description('User password').example('samuelcastro'),
+                name: schema.name.optional().description('User name').example('Samuel Castro'),
 				phone: schema.phone.optional().description('User phone').example('55 37 9999-9999'),
 				active: schema.active.optional().description('User is active').example(true)
 			},

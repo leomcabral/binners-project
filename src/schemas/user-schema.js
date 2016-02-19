@@ -15,6 +15,7 @@ function UserSchema(){
 		email: Joi.string().email(),
 		userName: Joi.string(),
         password: Joi.string(),
+        name: Joi.string(),
         phone: Joi.string(),
         active: Joi.boolean().default(true),
 		authorization: Joi.object({

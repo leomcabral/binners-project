@@ -113,7 +113,9 @@ UserController.prototype = (function () {
             User.findByIdAndUpdate(request.params._id, request.payload).exec().then(
                     function (user) {
                         if (user)
-                            reply(user);
+                            User.findById(user.id).exec().then(function (updatedUser) {
+                                reply(updatedUser);
+                            });
                         else
                             reply(Boom.notFound('User not found.'))
                     },

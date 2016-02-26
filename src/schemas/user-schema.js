@@ -9,19 +9,37 @@
 
 var Joi = require('joi');
 
-function UserSchema(){
-	this.schema = {
-		_id: Joi.string(),
-		email: Joi.string().email(),
-		userName: Joi.string(),
+function UserSchema() {
+    this.schema = {
+        _id: Joi.string(),
+        email: Joi.string().email(),
         password: Joi.string(),
         name: Joi.string(),
         phone: Joi.string(),
         active: Joi.boolean().default(true),
-		authorization: Joi.object({
-			'Authorization': Joi.string().description('Authorization Token')
-		}).unknown()
-	};
+        addresses: Joi.array().items(
+            Joi.object({
+                homeAddress: Joi.boolean().default(false),
+                street: Joi.string(),
+                city: Joi.string(),
+                state: Joi.string(),
+                zip: Joi.string(),
+                location: Joi.object({
+                    type: Joi.string(),
+                    coordinates: Joi.array().items(Joi.number())
+                })
+            })
+        ),
+        social: Joi.array().items(
+            Joi.object({
+                type: Joi.string().required().valid('facebook', 'google', 'twitter').description('Social authentication service identificator'),
+                username: Joi.string().required()
+            })
+        ),
+        authorization: Joi.object({
+            'Authorization': Joi.string().description('Authorization Token')
+        }).unknown()
+    };
 }
 
 module.exports = UserSchema;

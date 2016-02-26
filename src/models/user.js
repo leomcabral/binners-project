@@ -5,7 +5,8 @@ var mongoose = require('mongoose'),
         Address = require('./address'),
         crypto = require('crypto'),
         Promise = require("bluebird"),
-        bcrypt = require('bcryptjs');
+        bcrypt = require('bcryptjs'),
+        _ = require('underscore');
 
 /**
  * Creating user schema
@@ -55,6 +56,16 @@ User.methods.doHashReset = function (cb) {
  */
 User.methods.validatePassword = function (pwd) {
     return bcrypt.compareSync(pwd, this.password);
+};
+
+/**
+ * Returns a "safe copy" of the user object. It will remove properties that
+ * should not be exposed (like passwords).
+ *
+ * @returns {User}
+ */
+User.methods.safeCopy = function () {
+    return _.omit(this.toObject(), ['password', '__v', 'resetPasswordToken', 'resetPasswordExpires']);
 };
 
 module.exports = mongoose.model('User', User);

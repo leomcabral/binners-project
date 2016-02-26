@@ -52,7 +52,7 @@ AuthController.prototype = (function () {
                     );
 
                     reply(
-                            {token: token, user: {id: user._id, email: user.email}}
+                            {token: token, user: user.safeCopy()}
                     );
 
                 } catch (err) {
@@ -270,11 +270,7 @@ AuthController.prototype = (function () {
                                 return reply(err);
                             }
 
-                            userData = {
-                                id: user.id,
-                                name: user.name,
-                                email: user.email
-                            };
+                            userData = user.safeCopy();
 
                             /**
                              * Generating a new JWT token
@@ -347,11 +343,7 @@ AuthController.prototype = (function () {
                                 return reply(err);
                             }
 
-                            userData = {
-                                id: user.id,
-                                name: user.name,
-                                email: user.email
-                            };
+                            userData = user.safeCopy();
 
                             /**
                              * Generating a new JWT token
@@ -412,11 +404,7 @@ AuthController.prototype = (function () {
                                         return reply(err);
                                     }
 
-                                    var userData = {
-                                        id: user.id,
-                                        name: user.name,
-                                        email: user.email
-                                    };
+                                    var userData = user.safeCopy();
 
                                     /**
                                      * Generating a new JWT token

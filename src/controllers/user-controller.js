@@ -10,7 +10,8 @@ var Boom = require('boom'),
         jwt = require('jsonwebtoken'),
         config = require('config'),
         errors = require('../lib/utilities').getErrorsCode(),
-        models = require('../models');
+        models = require('../models'),
+        _ = require('underscore');
 
 function UserController() {}
 
@@ -34,7 +35,7 @@ UserController.prototype = (function () {
         find: function (request, reply) {
             User.find().exec().then(
                     function (users) {
-                        reply(users);
+                        reply( _.map(users, function(u) { return u.safeCopy(); }));
                     },
                     function (error) {
                         reply(Boom.badData(error.message));
@@ -50,7 +51,7 @@ UserController.prototype = (function () {
             User.findById(request.params._id).exec().then(
                     function (user) {
                         if (user)
-                            reply(user);
+                            reply(user.safeCopy());
                         else {
                             var err = Boom.badData('', errors.USER_NOT_FOUND);
                             err.output.payload.details = err.data;
@@ -82,12 +83,7 @@ UserController.prototype = (function () {
                         reply(
                                 {
                                     token: token,
-                                    user: {
-                                        id: user._id,
-                                        email: user.email,
-                                        phone: user.phone,
-                                        active: user.active
-                                    }
+                                    user: user.safeCopy()
                                 }
                         );
                     },
@@ -114,7 +110,7 @@ UserController.prototype = (function () {
                     function (user) {
                         if (user)
                             User.findById(user.id).exec().then(function (updatedUser) {
-                                reply(updatedUser);
+                                reply(updatedUser.safeCopy());
                             });
                         else
                             reply(Boom.notFound('User not found.'))

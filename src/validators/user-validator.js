@@ -34,7 +34,8 @@ UserValidator.prototype = (function () {
                 name: schema.name.required().description('User name').example('Samuel Castro'),
                 phone: schema.phone.optional().description('User phone').example('55 37 9999-9999'),
                 active: schema.active.optional().description('User is active').example(true),
-                addresses: schema.addresses.optional().description('User addresses')
+                addresses: schema.addresses.optional().description('User addresses'),
+                social: schema.social.optional().description('Social login information')
             }
         },
         update: {

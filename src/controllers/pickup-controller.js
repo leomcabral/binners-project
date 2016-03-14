@@ -13,7 +13,8 @@ var Boom = require('boom'),
         jwt = require('jsonwebtoken'),
         config = require('config'),
         models = require('../models'),
-        errors = require('../lib/utilities').getErrorsCode();
+        errors = require('../lib/utilities').getErrorsCode(),
+        moment = require('moment-timezone');
 
 function PickupController() {}
 
@@ -29,8 +30,7 @@ PickupController.prototype = (function () {
             var newPickup = {
                 requester: payload.requester,
                 address: payload.address,
-                startTime: payload.timeInterval.start,
-                endTime: payload.timeInterval.end,
+                time: payload.time,
                 instructions: payload.instructions,
                 items: payload.items
             };
@@ -43,6 +43,15 @@ PickupController.prototype = (function () {
                 reply(Boom.badRequest(error));
             });
 
+        },
+        list: function (request, reply) {
+            var curDate = moment().tz('America/Vancouver');
+            var last6Month = curDate.clone().subtract(6, 'months');
+
+            Pickup.find({ time: {"$gte": last6Month} }).exec()
+                    .then(function (pickups) {
+                        reply(pickups);
+                    });
         }
 
     };

@@ -1,8 +1,5 @@
 var mongoose = require('mongoose'),
-        uniqueValidator = require('mongoose-unique-validator'),
         Schema = mongoose.Schema,
-        //Address = require('./address'),
-        Promise = require("bluebird"),
         _ = require('underscore');
 
 /**
@@ -32,12 +29,10 @@ var Pickup = new Schema({
             coordinates: [Number]
         }
     },
-    startTime: {type: Date},
-    endTime: {type: Date},
+    time: {type: Date},
     instructions: {type: String},
     items: [itemsSchema]
 });
-
 
 module.exports = mongoose.model('Pickup', Pickup);
 

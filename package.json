@@ -33,6 +33,7 @@
     "joi": "6.1.0",
     "jsonwebtoken": "5.0.1",
     "marked": "0.3.3",
+    "moment-timezone": "0.5.1",
     "mongoose": "4.0.3",
     "mongoose-findorcreate": "0.1.2",
     "mongoose-unique-validator": "0.4.1",

@@ -20,6 +20,19 @@ exports.register = function (server, options, next) {
         }
     });
 
+    server.route({
+        method: 'GET',
+        path: '/api/' + version + '/pickups',
+        config: {
+            handler: controllers.PickupController.list,
+            validate: validators.PickupValidator.list,
+            description: 'List last 6 months user\'s pickups',
+            notes: 'List last 6 months user\'s pickups',
+            tags: ['api'],
+            auth: 'jwt'
+        }
+    });
+
     next();
 
 };

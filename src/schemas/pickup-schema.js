@@ -23,10 +23,7 @@ function PickupSchema() {
                 coordinates: Joi.array().items(Joi.number())
             })
         },
-        timeInterval: Joi.object({
-            start: Joi.date(),
-            end: Joi.date()
-        }).description('Time frame to the pickup'),
+        time: Joi.date().description('Date/time to the pickup'),
         instructions: Joi.string().description('Instructions to the binner'),
         items: Joi.array().items(Joi.object({
             type: Joi.string().valid('can', 'bottle').description('Type of item'),

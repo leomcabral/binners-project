@@ -13,9 +13,15 @@ PickupValidator.prototype = (function () {
             payload: {
                 requester: schema.requester.required(),
                 address: schema.address,
-                timeInterval: schema.timeInterval.required(),
+                time: schema.time.required(),
                 instructions: schema.instructions.optional(),
                 items: schema.items.required()
+            },
+            headers: schema.authorization.required()
+        },
+        list: {
+            query: {
+                user: schema.requester.required()
             },
             headers: schema.authorization.required()
         }

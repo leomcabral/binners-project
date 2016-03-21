@@ -391,9 +391,10 @@ AuthController.prototype = (function () {
                                     criteria.email = twitterProfile.email;
                                 } else {
                                     criteria.social = {
+                                        $elemMatch: {
                                         type: 'twitter',
                                         username: twitterProfile.screen_name
-                                    };
+                                    }};
                                 }
 
                                 // Validate user on mongodb

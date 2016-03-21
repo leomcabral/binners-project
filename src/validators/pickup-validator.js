@@ -20,9 +20,6 @@ PickupValidator.prototype = (function () {
             headers: schema.authorization.required()
         },
         list: {
-            query: {
-                user: schema.requester.required()
-            },
             headers: schema.authorization.required()
         }
     };

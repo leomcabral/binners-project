@@ -33,6 +33,23 @@ exports.register = function (server, options, next) {
         }
     });
 
+    server.route({
+        method: 'POST',
+        path: '/api/' + version + '/pickups/{_id}/photos',
+        config: {
+            payload: {
+                maxBytes:  50 * 1024 * 1024, // 50 MB
+                output: 'stream',
+                parse: true
+            },
+            handler: controllers.PickupController.photoUpload,
+            description: 'Upload photo to specified pickup id (max file size 50MB)',
+            notes: 'Upload photo to specified pickup id (max file size 50MB)',
+            tags: ['api'],
+            auth: 'jwt'
+        }
+    });
+
     next();
 
 };

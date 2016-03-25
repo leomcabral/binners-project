@@ -19,7 +19,7 @@ You first need to install [node.js](http://nodejs.org/) if you do not already ha
     1. Move into the project directory `$ cd binners-project-api`
     2. Run `$ npm install`
     3. Set your environment: export NODE_ENV=development (OSX/Linux)
-    4. Run `$ npm start`
+    4. Run `$ npm start` (OSX/Linux) and `$npm run start_windows` on (Windows)
     6. Connect to the server using `http://localhost:3000`
 
 ## Examples

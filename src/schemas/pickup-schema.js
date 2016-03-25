@@ -1,7 +1,5 @@
 "use strict";
-
 var Joi = require('joi');
-
 /**
  * Pickup schema.
  *
@@ -33,8 +31,8 @@ function PickupSchema() {
         authorization: Joi.object({
             'Authorization': Joi.string().description('Authorization Token')
         }).unknown()
+    }, {
+        timestamps: true
     };
 }
-
 module.exports = PickupSchema;
-

@@ -31,8 +31,6 @@ function PickupSchema() {
         authorization: Joi.object({
             'Authorization': Joi.string().description('Authorization Token')
         }).unknown()
-    }, {
-        timestamps: true
     };
 }
 module.exports = PickupSchema;

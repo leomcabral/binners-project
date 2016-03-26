@@ -11,8 +11,6 @@ function AuthSchema() {
     this.schema = {
         accessToken: Joi.string(),
         accessSecret: Joi.string()
-    }, {
-        timestamps: true
     };
 }
 module.exports = AuthSchema;

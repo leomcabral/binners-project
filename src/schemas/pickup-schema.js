@@ -1,7 +1,5 @@
 "use strict";
-
 var Joi = require('joi');
-
 /**
  * Pickup schema.
  *
@@ -35,6 +33,4 @@ function PickupSchema() {
         }).unknown()
     };
 }
-
 module.exports = PickupSchema;
-

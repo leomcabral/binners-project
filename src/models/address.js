@@ -1,16 +1,29 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
-
 var Address = new Schema({
-    homeAddress: {type: Boolean, default: true},
-    street: {type: String},
-    city: {type: String},
-    state: {type: String},
-    zip: {type: String},
+    homeAddress: {
+        type: Boolean,
+        default: true
+    },
+    street: {
+        type: String
+    },
+    city: {
+        type: String
+    },
+    state: {
+        type: String
+    },
+    zip: {
+        type: String
+    },
     location: {
-        type: {type: String},
+        type: {
+            type: String
+        },
         coordinates: [Number]
     }
+}, {
+    timestamps: true
 });
-
 module.exports = mongoose.model('Address', Address);

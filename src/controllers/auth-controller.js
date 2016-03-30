@@ -60,6 +60,24 @@ AuthController.prototype = (function () {
                 }
             });
         },
+
+        /**
+         * Revalidate an user token.
+         */
+        revalidate: function (request, reply) {
+            var userId = request.auth.credentials.id;
+
+            User.findOne({_id: userId}).then(function (user) {
+                var token = jwt.sign(
+                    {user: user.get('_id')},
+                    config.get('TOKEN.SECRET'),
+                    {expiresInMinutes: config.get('TOKEN.OPTIONS.EXPIRES_IN_MINUTES')}
+                );
+
+                reply({token: token, user: user.safeCopy()});
+            });
+        },
+
         /**
          * Getting the auth credentials
          * @param request

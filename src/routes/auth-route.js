@@ -110,6 +110,19 @@ exports.register = function(server, options, next) {
     }
   });
 
+  server.route({
+    method: 'POST',
+    path: '/api/' + version + '/auth/revalidate',
+    config: {
+      handler: controllers.AuthController.revalidate,
+      validate: validators.AuthValidator.getAuth,
+      description: 'Revalidate an user token',
+      notes: 'Returns a new token with a new expiration timestamp. Call this route to extend the user token.<br>Usefull to keep an valid token on mobile devices.',
+      tags: ['api'],
+      auth: 'jwt'
+    }
+  });
+
   /**
    * @api {post} /api/v1.0/auth/facebook/{access_token}
    * @apiName Facebook SignIn

@@ -38,6 +38,8 @@ AuthController.prototype = (function () {
                     reply(err);
                 }
 
+                console.log(user);
+
                 if (!user.validatePassword(auth.password)) {
                     var err = Boom.badData('', errors.INVALID_PASSWORD);
                     err.output.payload.details = err.data;
@@ -67,7 +69,7 @@ AuthController.prototype = (function () {
         revalidate: function (request, reply) {
             var userId = request.auth.credentials.id;
 
-            User.findOne({_id: userId}).then(function (user) {
+            User.findById(userId).then(function (user) {
                 var token = jwt.sign(
                     {user: user.get('_id')},
                     config.get('TOKEN.SECRET'),
@@ -225,6 +227,7 @@ AuthController.prototype = (function () {
          */
         isAuthenticated: function (request, reply) {
             if (request.auth.isAuthenticated) {
+                console.log(request.auth);
 
                 /**
                  * Generating a new JWT token
@@ -238,7 +241,7 @@ AuthController.prototype = (function () {
                 /**
                  * Updating social token
                  */
-                request.auth.credentials.token = token;
+                //request.auth.credentials.token = token;
 
                 return reply(request.auth);
             }
@@ -283,6 +286,17 @@ AuthController.prototype = (function () {
                             email: facebookUser.email
                         }).then(function (user) {
                             if (!user) {
+                                console.log('Facebook user not registered, registering...');
+                                registerUser(
+                                    facebookUser.email,
+                                    googleUser.displayName,
+                                    'facebook',
+                                    googleUser.emails[0].value,
+                                    googleUser,
+                                    function(createdUser) {
+                                        console.log('Úser registered!');
+                                        return reply({token: generateToken(createdUser), user: createdUser.safeCopy(), social: true});
+                                    });
                                 err = Boom.notFound('', errors.USER_NOT_FOUND);
                                 err.output.payload.details = err.data;
                                 return reply(err);
@@ -320,7 +334,7 @@ AuthController.prototype = (function () {
 
                 var options = {
                     host: 'www.googleapis.com',
-                    path: '/plus/v1/people/me?fields=displayName%2Cemails%2Cgender%2Cname&key=' + request.params.accessToken,
+                    path: '/plus/v1/people/me?key=' + request.params.accessToken,
                     headers: {
                         Authorization: 'Bearer ' + request.params.accessToken
                     }
@@ -356,23 +370,27 @@ AuthController.prototype = (function () {
                             email: googleUser.emails.length > 0 ? googleUser.emails[0].value : null
                         }).then(function (user) {
                             if (!user) {
-                                err = Boom.notFound('', errors.USER_NOT_FOUND);
-                                err.output.payload.details = err.data;
-                                return reply(err);
+                                console.log('Google user not registered, registering...');
+                                registerUser(
+                                    googleUser.emails[0].value,
+                                    googleUser.displayName,
+                                    'google',
+                                    googleUser.emails[0].value,
+                                    googleUser,
+                                    function(createdUser) {
+                                        console.log('Úser registered!');
+                                        return reply({token: generateToken(createdUser), user: createdUser.safeCopy(), social: true});
+                                    });
+                            } else {
+                                userData = user.safeCopy();
+
+                                /**
+                                 * Generating a new JWT token
+                                 */
+                                var token = generateToken(user);
+
+                                return reply({token: token, user: userData, social: true});
                             }
-
-                            userData = user.safeCopy();
-
-                            /**
-                             * Generating a new JWT token
-                             */
-                            var token = jwt.sign(
-                                    {user: user.id},
-                                    config.get('TOKEN.SECRET'),
-                                    {expiresInMinutes: config.get('TOKEN.OPTIONS.EXPIRES_IN_MINUTES')}
-                            );
-
-                            return reply({token: token, user: userData, social: true});
                         });
 
                     });
@@ -443,6 +461,26 @@ AuthController.prototype = (function () {
         }
     }
 })();
+
+function registerUser(email, name, socialType, socialUsername, socialProfile, callback) {
+    var newUser = new User({
+        name: name,
+        email: email,
+        social: [{type: socialType, username: socialUsername, profile: socialProfile}]
+    });
+
+    newUser.save()
+           .then(function (user) {
+              callback(user);
+           });
+}
+
+function generateToken(user) {
+    return jwt.sign(
+                    {user: user.id},
+                    config.get('TOKEN.SECRET'),
+                    {expiresInMinutes: config.get('TOKEN.OPTIONS.EXPIRES_IN_MINUTES')});
+}
 
 module.exports = new AuthController();
 
